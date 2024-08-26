@@ -15,7 +15,7 @@ podTemplate(containers: [
         stage('Build Docker Image') {
             container('buildkit') {
                 sh """
-                  buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=the-name
+                  buildctl build --frontend=dockerfile.v0 --local context=. --local dockerfile=.
                 """
                 milestone(1)
             }
