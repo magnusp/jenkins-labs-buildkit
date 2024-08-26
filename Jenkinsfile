@@ -1,6 +1,7 @@
 podTemplate(containers: [
     containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', command: 'cat', ttyEnabled: true),
 	containerTemplate(name: 'buildkit', image: 'moby/buildkit:master', ttyEnabled: true, privileged: true),
+	containerTemplate(name: 'my-container', image: 'docker.io/username/image:tag', ttyEnabled: true, alwaysPullImage: false),
   ]
   ) {
     node(POD_LABEL) {
@@ -21,6 +22,12 @@ podTemplate(containers: [
                   buildctl build --frontend gateway.v0 --opt source=docker/dockerfile --local context=. --local dockerfile=. --output type=image,name=docker.io/username/image:tag
                 """
                 milestone(1)
+            }
+        }
+
+        stage('Test it') {
+            container('my-container') {
+                sh 'echo "Hello from my container"'
             }
         }
     }
