@@ -4,6 +4,8 @@ podTemplate(containers: [
   ]
   ) {
     node(POD_LABEL) {
+        checkout scm
+
         stage('Maven hello') {
             container('maven') {
                 sh 'mvn --version'
