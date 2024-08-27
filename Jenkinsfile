@@ -8,7 +8,7 @@ podTemplate(containers: [
         stage('The stage') {
             container('spec-toolkit') {
                 sh 'oasdiff --version'
-                sh 'vacuum --version'
+                sh 'vacuum version'
             }
         }
     }
